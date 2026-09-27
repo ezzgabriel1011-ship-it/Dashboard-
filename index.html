@@ -5,204 +5,304 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carta de Bienvenida - IPVCE</title>
     <style>
-        /* Importar una fuente similar a la del boleto (sans-serif geométrica) */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        /* Importar una fuente similar a la del boleto */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
+
+        /* Variables de color */
+        :root {
+            --color-rojo: #e30613;
+            --color-naranja: #f39200;
+            --color-amarillo: #ffed00;
+            --color-azul: #009fe3;
+            --color-verde: #00a651;
+            --color-morado: #662483;
+            --color-verde-oscuro: #006633;
+            --color-fondo: #f4f4f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
-            background-color: #f0f0f0;
+            background-color: var(--color-fondo);
             font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
             padding: 20px;
-            box-sizing: border-box;
         }
 
-        /* Contenedor principal que simula el boleto */
-        .ticket-container {
+        /* Contenedor principal de la tarjeta */
+        .card-container {
             background-color: #ffffff;
-            max-width: 900px;
+            max-width: 800px;
             width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             display: flex;
-            flex-wrap: wrap;
             overflow: hidden;
             position: relative;
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
         }
 
-        /* Sección Izquierda (La carta) */
-        .left-section {
-            flex: 2;
-            padding: 40px;
-            position: relative;
-            border-right: 2px dashed #000;
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Diseño de las franjas de colores laterales (imitando el boleto) */
-        .color-stripes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 60px;
-            height: 100%;
+        /* Sección Izquierda (Franjas decorativas) */
+        .left-decor {
+            width: 80px;
             background: linear-gradient(to bottom, 
-                #e30613 0%, #e30613 12.5%, 
-                #f39200 12.5%, #f39200 25%, 
-                #ffed00 25%, #ffed00 37.5%, 
-                #009fe3 37.5%, #009fe3 50%, 
-                #00a651 50%, #00a651 62.5%, 
-                #662483 62.5%, #662483 75%, 
-                #e30613 75%, #e30613 87.5%, 
-                #f39200 87.5%, #f39200 100%
+                var(--color-rojo) 0%, var(--color-rojo) 14.2%, 
+                var(--color-naranja) 14.2%, var(--color-naranja) 28.4%, 
+                var(--color-amarillo) 28.4%, var(--color-amarillo) 42.6%, 
+                var(--color-azul) 42.6%, var(--color-azul) 56.8%, 
+                var(--color-verde) 56.8%, var(--color-verde) 71%, 
+                var(--color-morado) 71%, var(--color-morado) 85.2%, 
+                var(--color-rojo) 85.2%, var(--color-rojo) 100%
             );
-            border-top-left-radius: 15px;
-            border-bottom-left-radius: 15px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: slideIn 1.2s ease-out;
         }
 
-        /* El trofeo simulado en la parte izquierda */
-        .trophy-icon {
-            position: absolute;
-            top: 40px;
-            left: 10px;
-            font-size: 30px;
-            color: #ffd700;
-            text-shadow: 1px 1px 2px #000;
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Logo del trofeo SVG dentro de la franja */
+        .trophy-svg-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: 2px solid #fff;
             z-index: 2;
+            animation: pulse 2s infinite ease-in-out;
         }
 
-        /* Contenido de texto */
-        .content {
-            margin-left: 50px; /* Espacio para las franjas */
-            padding-top: 20px; /* Un poco de espacio arriba */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .trophy-svg {
+            width: 35px;
+            height: 35px;
+            fill: #ffd700;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+        }
+
+        /* Sección Central (Contenido) */
+        .content-section {
+            flex: 1;
+            padding: 50px 60px;
+            position: relative;
+        }
+
+        /* Marca de agua de fondo sutil */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 200px;
+            font-weight: 900;
+            color: rgba(0, 0, 0, 0.03);
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
         }
 
         .greeting {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 900;
-            color: #006633; /* Verde oscuro similar al del boleto */
+            color: var(--color-verde-oscuro);
             text-transform: uppercase;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
+            margin-bottom: 30px;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Línea decorativa junto al saludo */
+        .greeting::after {
+            content: '';
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-verde-oscuro), transparent);
+            border-radius: 2px;
         }
 
         .letter-body {
             font-size: 15px;
-            line-height: 1.6;
-            color: #333;
+            line-height: 1.7;
+            color: #444;
             text-align: justify;
             margin-bottom: 30px;
         }
 
         .letter-body p {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .letter-body strong {
-            color: #000;
+            color: #222;
+            font-weight: 700;
+        }
+
+        /* Animación de retraso para los párrafos */
+        .letter-body p {
+            animation: fadeInText 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .letter-body p:nth-child(1) { animation-delay: 0.2s; }
+        .letter-body p:nth-child(2) { animation-delay: 0.4s; }
+        .letter-body p:nth-child(3) { animation-delay: 0.6s; }
+        .letter-body p:nth-child(4) { animation-delay: 0.8s; }
+        .letter-body p:nth-child(5) { animation-delay: 1.0s; }
+        .letter-body p:nth-child(6) { animation-delay: 1.2s; }
+        .letter-body p:nth-child(7) { animation-delay: 1.4s; }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .signature {
             font-size: 16px;
             font-weight: 700;
             text-align: right;
-            margin-top: 30px;
+            margin-top: 40px;
+            color: #333;
+            animation: fadeInText 1s ease-out 1.6s forwards;
+            opacity: 0;
         }
 
         .signature span {
             display: block;
-            font-size: 20px;
-            color: #006633;
-        }
-
-        /* Sección Derecha (Logo 26) */
-        .right-section {
-            flex: 1;
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            min-width: 200px;
-        }
-
-        .big-26 {
-            font-size: 120px;
+            font-size: 22px;
+            color: var(--color-verde-oscuro);
             font-weight: 900;
-            line-height: 0.8;
-            letter-spacing: -5px;
-            color: #fff;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Simulación del trofeo sobre el 26 */
-        .trophy-overlay {
-            font-size: 80px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #ffd700;
-            z-index: 2;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .fifa-logo {
-            font-size: 24px;
-            font-weight: 900;
+            margin-top: 5px;
             letter-spacing: 2px;
-            margin-top: 10px;
-            z-index: 3;
+        }
+
+        /* Logo de balón SVG decorativo en la esquina inferior derecha */
+        .ball-svg-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            opacity: 0.15;
+            z-index: 0;
+            animation: rotateBall 20s linear infinite;
+        }
+
+        @keyframes rotateBall {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .ball-svg {
+            width: 100%;
+            height: 100%;
+            fill: #000;
         }
 
         /* Responsividad */
         @media (max-width: 768px) {
-            .ticket-container {
+            .card-container {
                 flex-direction: column;
             }
-            .left-section {
-                border-right: none;
-                border-bottom: 2px dashed #000;
-                padding: 20px;
+            .left-decor {
+                width: 100%;
+                height: 60px;
+                flex-direction: row;
+                background: linear-gradient(to right, 
+                    var(--color-rojo) 0%, var(--color-rojo) 14.2%, 
+                    var(--color-naranja) 14.2%, var(--color-naranja) 28.4%, 
+                    var(--color-amarillo) 28.4%, var(--color-amarillo) 42.6%, 
+                    var(--color-azul) 42.6%, var(--color-azul) 56.8%, 
+                    var(--color-verde) 56.8%, var(--color-verde) 71%, 
+                    var(--color-morado) 71%, var(--color-morado) 85.2%, 
+                    var(--color-rojo) 85.2%, var(--color-rojo) 100%
+                );
             }
-            .right-section {
-                padding: 40px 20px;
-                min-height: 200px;
+            .trophy-svg-container {
+                width: 50px;
+                height: 50px;
             }
-            .big-26 {
-                font-size: 80px;
-            }
-            .trophy-overlay {
-                font-size: 50px;
-            }
-            .color-stripes {
+            .trophy-svg {
                 width: 30px;
+                height: 30px;
             }
-            .content {
-                margin-left: 20px;
+            .content-section {
+                padding: 30px 25px;
+            }
+            .greeting {
+                font-size: 22px;
+            }
+            .watermark {
+                font-size: 120px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="ticket-container">
-        <!-- Sección Izquierda: Carta -->
-        <div class="left-section">
-            <!-- Franjas de colores laterales -->
-            <div class="color-stripes"></div>
-            
-            <!-- Icono del trofeo pequeño -->
-            <div class="trophy-icon">🏆</div>
+    <div class="card-container">
+        <!-- Sección Izquierda: Franjas de colores y Trofeo SVG -->
+        <div class="left-decor">
+            <div class="trophy-svg-container">
+                <!-- Trofeo SVG Profesional -->
+                <svg class="trophy-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9V11C5 15.42 8.13 19 12 19C15.87 19 19 15.42 19 11V9C19 5.13 15.87 2 12 2ZM12 17C9.24 17 7 14.76 7 12V9C7 6.24 9.24 4 12 4C14.76 4 17 6.24 17 9V12C17 14.76 14.76 17 12 17ZM12 6C10.34 6 9 7.34 9 9V12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12V9C15 7.34 13.66 6 12 6ZM12 13C11.45 13 11 12.55 11 12V9C11 8.45 11.45 8 12 8C12.55 8 13 8.45 13 9V12C13 12.55 12.55 13 12 13ZM10 21H14V23H10V21ZM11 19H13V21H11V19Z"/>
+                    <path d="M5 9H3V11C3 13.21 4.79 15 7 15V13C5.9 13 5 12.1 5 11V9ZM19 9H21V11C21 13.21 19.21 15 17 15V13C18.1 13 19 12.1 19 11V9Z" opacity="0.6"/>
+                </svg>
+            </div>
+        </div>
 
-            <div class="content">
+        <!-- Sección Central: Texto de la Carta -->
+        <div class="content-section">
+            <!-- Marca de agua de fondo -->
+            <div class="watermark">IPVCE</div>
+
+            <!-- Balón SVG decorativo -->
+            <div class="ball-svg-container">
+                <svg class="ball-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"/>
+                    <path d="M12 6C8.69 6 6 8.69 6 12C6 15.31 8.69 18 12 18C15.31 18 18 15.31 18 12C18 8.69 15.31 6 12 6ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z" opacity="0.5"/>
+                    <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"/>
+                </svg>
+            </div>
+
+            <div class="content-wrapper">
                 <div class="greeting">¡Bienvenidos!</div>
 
                 <div class="letter-body">
@@ -227,13 +327,6 @@
                     <span>XLI</span>
                 </div>
             </div>
-        </div>
-
-        <!-- Sección Derecha: Logo 26 -->
-        <div class="right-section">
-            <div class="big-26">26</div>
-            <div class="trophy-overlay">🏆</div>
-            <div class="fifa-logo">FIFA®</div>
         </div>
     </div>
 
